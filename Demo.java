@@ -1,19 +1,75 @@
-import java.util.*;
-
 class Demo {
-
-    static String removeConsecutiveDuplicates(String str) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(str.charAt(0));
-        for(int i=1 ; i<str.length() ; i++) {
-            if(str.charAt(i) != str.charAt(i-1))
-                sb.append(str.charAt(i));
+    static Node middle(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        return new String(sb);
+        return slow;
     }
 
+    static Node merge(Node left, Node right) {
+        Node dummy = new Node(-1);
+        Node tail = dummy;
+        while(left != null && right != null) {
+            if(left.data <= right.data) {
+                tail.next = left;
+                left = left.next;
+            } else {
+                tail.next = right;
+                right = right.next;
+            }
+            tail = tail.next;
+        }
+        if(left != null)
+            tail.next = left;
+        if(right != null)
+            tail.next = right;
+        return dummy.next;
+    }
+
+    static Node mergeSort(Node head) {
+        if(head == null || head.next == null)
+            return head;
+        Node middle = middle(head);
+        Node nextToMiddle = middle.next;
+        middle.next = null;
+        Node left = mergeSort(head);
+        Node right = mergeSort(nextToMiddle);
+        return merge(left, right);
+    }
+
+    static void display(Node head) {
+        Node temp = head;
+        while(temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
     public static void main(String[] args) {
-        String s = "aaabbcddd";
-        System.out.println(removeConsecutiveDuplicates(s));
+        Node head = new Node(4);
+        head.next = new Node(2);
+        head.next.next = new Node(1);
+        head.next.next.next = new Node(3);
+
+        System.out.println("Before Sorting: ");
+        display(head);
+
+        head = mergeSort(head);
+
+        System.out.println("After Sorting: ");
+        display(head);
+    }
+}
+
+
+class Node {
+    int data;
+    Node next;
+    Node(int data) {
+        this.data = data;
+        this.next = null;
     }
 }

@@ -19,7 +19,7 @@ public class MaxProdSubarray { // DP + Greedy O(n) & O(1) modified Kadane
         return result;
     }
     public static void main(String[] args) {
-        int[] nums = {-2, 0, -1}; //{2, 3, -2, 4};
+        int[] nums = {2, 3, -2, 4};
         System.out.println("Maximum product of contiguous subarray: " + maxProduct(nums));
     }
 }

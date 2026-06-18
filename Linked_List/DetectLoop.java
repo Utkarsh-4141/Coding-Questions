@@ -2,9 +2,8 @@ package Linked_List;
 
 // Floyd's Cycle Detection Algorithm (Tortoise and Hare Algorithm)
 public class DetectLoop { // O(n) & O(1)
-    Node head;
 
-    public boolean hasLoop(Node head) {
+    static boolean hasLoop(Node head) {
         Node slow = head;
         Node fast = head;
         while(fast!=null && fast.next!=null) {
@@ -18,16 +17,15 @@ public class DetectLoop { // O(n) & O(1)
     }
 
     public static void main(String[] args) {
-        DetectLoop list = new DetectLoop();
-        list.head = new Node(1);
-        list.head.next = new Node(2);
-        list.head.next.next = new Node(3);
-        list.head.next.next.next = new Node(4);
-        list.head.next.next.next.next = new Node(5);
+    Node head = new Node(1);
+    head.next = new Node(2);
+    head.next.next = new Node(3);
+    head.next.next.next = new Node(4);
+    head.next.next.next.next = new Node(5);
 
-        list.head.next.next.next.next.next = list.head.next;
+    head.next.next.next.next.next =head.next;
 
-        if(list.hasLoop(list.head)) {
+        if(hasLoop(head)) {
             System.out.println("Loop Found!");
         } else {
             System.out.println("No Loop");
