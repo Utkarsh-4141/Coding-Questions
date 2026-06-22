@@ -1,75 +1,51 @@
-class Demo {
-    static Node middle(Node head) {
-        Node slow = head;
-        Node fast = head.next;
-        while(fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return slow;
-    }
+import java.util.*;
 
-    static Node merge(Node left, Node right) {
-        Node dummy = new Node(-1);
-        Node tail = dummy;
-        while(left != null && right != null) {
-            if(left.data <= right.data) {
-                tail.next = left;
-                left = left.next;
-            } else {
-                tail.next = right;
-                right = right.next;
+public class Demo {
+    static void bfs(char[][] grid, int row, int col) {
+        Queue<int[]> q = new LinkedList<>();
+        grid[row][col] = '0';
+        q.offer(new int[] {row, col});
+        int[] dr = {-1, 1, 0, 0};
+        int[] dc = {0, 0, -1, 1};
+        while(!q.isEmpty()) {
+            int[] current = q.poll();
+            int r = current[0];
+            int c = current[1];
+            for(int i=0 ; i<4 ; i++) {
+                int nr = r + dr[i];
+                int nc = c + dc[i];
+                if(nr>=0 && nr<grid.length && nc>=0 && nc<grid[0].length && grid[nr][nc]=='1') {
+                    grid[nr][nc] = '0';
+                    q.offer(new int[] {nr, nc});
+                }
             }
-            tail = tail.next;
         }
-        if(left != null)
-            tail.next = left;
-        if(right != null)
-            tail.next = right;
-        return dummy.next;
     }
 
-    static Node mergeSort(Node head) {
-        if(head == null || head.next == null)
-            return head;
-        Node middle = middle(head);
-        Node nextToMiddle = middle.next;
-        middle.next = null;
-        Node left = mergeSort(head);
-        Node right = mergeSort(nextToMiddle);
-        return merge(left, right);
+    static int numIslands(char[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int count = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    bfs(grid, i, j);
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
-    static void display(Node head) {
-        Node temp = head;
-        while(temp != null) {
-            System.out.print(temp.data + " -> ");
-            temp = temp.next;
-        }
-        System.out.println("null");
-    }
     public static void main(String[] args) {
-        Node head = new Node(4);
-        head.next = new Node(2);
-        head.next.next = new Node(1);
-        head.next.next.next = new Node(3);
+        char[][] grid = {
+                { '1', '1', '0', '0', '0' },
+                { '1', '1', '0', '0', '0' },
+                { '0', '0', '1', '0', '0' },
+                { '0', '0', '0', '1', '1' }
+        };
 
-        System.out.println("Before Sorting: ");
-        display(head);
-
-        head = mergeSort(head);
-
-        System.out.println("After Sorting: ");
-        display(head);
-    }
-}
-
-
-class Node {
-    int data;
-    Node next;
-    Node(int data) {
-        this.data = data;
-        this.next = null;
+        System.out.println("Number of Islands: " + numIslands(grid));
     }
 }

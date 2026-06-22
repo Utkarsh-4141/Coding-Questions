@@ -15,18 +15,19 @@ public class DFSTraversal { // O(V + E) & O(V)
     // }
 
     // DFS Using Stack (Iterative)
-    static void dfs(ArrayList<ArrayList<Integer>> graph, int start) {
-        boolean[] visited = new boolean[graph.size()];
-        Stack<Integer> stack = new Stack<>();
-        stack.push(start);
-        while(!stack.isEmpty()) {
-            int node = stack.pop();
-            if(!visited[node]) {
-                visited[node] = true;
-                System.out.print(node + " ");
-                for(int neighbor : graph.get(node)) {
-                    if(!visited[neighbor])
-                        stack.push(neighbor);
+    static void dfs(ArrayList<ArrayList<Integer>> graph, int source) {
+        int v = graph.size();
+        boolean[] visited = new boolean[v];
+        Stack<Integer> st = new Stack<>();
+        visited[source] = true;
+        st.push(source);
+        while(!st.isEmpty()) {
+            int node = st.pop();
+            System.out.print(node + " ");
+            for(int neighbor : graph.get(node)) {
+                if(!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    st.push(neighbor);
                 }
             }
         }
@@ -35,10 +36,11 @@ public class DFSTraversal { // O(V + E) & O(V)
 
     // How to make iterative DFS match recursive DFS?
     // Push neighbors in reverse order:
-    // for(int i = graph.get(node).size() - 1; i >= 0; i--) {
+    // for(int i=graph.get(node).size()-1 ; i>=0 ; i--) {
     //     int neighbor = graph.get(node).get(i);
     //     if(!visited[neighbor]) {
-    //         stack.push(neighbor);
+    //         visited[neighbor] = true;
+    //         st.push(neighbor);
     //     }
     // }
     // 0 1 3 4 2 (both are valid)

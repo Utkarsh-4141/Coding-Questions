@@ -35,7 +35,7 @@ public class MergeSortLinkedList { // O(n log n) & O(log n)
     }
 
     static Node mergeSort(Node head) {
-        if(head == null || head.next == null) {
+        if(head == null || head.next == null) {  // IMP(base condition for recursive calls)
             return head;
         }
         Node middle = getMiddle(head);

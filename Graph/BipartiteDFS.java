@@ -8,11 +8,10 @@ public class BipartiteDFS { // O(V + E) & O(V)
         color[node] = currentColor;
         for(int neighbor : graph.get(node)) {
             if(color[neighbor] == -1) {
-                if(!dfs(graph, neighbor, 1 - currentColor, color)) {
+                if(!dfs(graph, neighbor, 1 - currentColor, color))
                     return false;
-                } else if(color[neighbor] == color[node]) {
-                    return false;
-                }
+            } else if(color[neighbor] == color[node]) {
+                return false;
             }
         }
         return true;

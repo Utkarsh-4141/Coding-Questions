@@ -32,6 +32,6 @@ public class SumOfNodes { // O(n) & O(h)
 // int curr = (root.data % 2 == 0) ? root.data : 0;
 // return leftSum + rightSum + curr;
 
-// Sum of Nodes Greater Than X:
+// Sum of Nodes Greater Than x:
 // int curr = (root.data > x) ? root.data : 0;
 // return leftSum + rightSum + curr;

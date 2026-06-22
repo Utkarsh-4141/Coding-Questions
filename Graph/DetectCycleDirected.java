@@ -30,7 +30,7 @@ public class DetectCycleDirected { // O(V + E) & O(V)
     }
     
     public static void main(String[] args) {
-        int v = 3;
+        int v = 5;
         ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
 
         for(int i=0 ; i<v ; i++) {
@@ -39,7 +39,9 @@ public class DetectCycleDirected { // O(V + E) & O(V)
 
         graph.get(0).add(1);
         graph.get(1).add(2);
-        graph.get(2).add(0);
+        // graph.get(2).add(0);
+
+        graph.get(3).add(1);
 
         System.out.println("Cycle Found: " + hasCycle(graph));
     }
@@ -58,7 +60,9 @@ public class DetectCycleDirected { // O(V + E) & O(V)
 // Cycle detected.
 
 // Suppose DFS is at:
-// 0 → 1 → 2
+//     0
+//    / \
+//   1---2
 // Then:
 // visited = [T,T,T] & pathVisited = [T,T,T]
 // If node 2 reaches node 0: pathVisited[0] = true
